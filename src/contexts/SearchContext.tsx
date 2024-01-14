@@ -15,20 +15,21 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
 
   useEffect(() => {
-    fetch('https://api.github.com/search/users?q=EloxFire')
-      .then((response) => {
-        console.log(response);
-
-        // const data = response.json();
-      }).catch((error) => {
-        console.log(error);
-      })
+    fetchGithub()
   }, []);
-  useEffect(() => {
-    if (searchResults.length > 0) {
-      console.log(searchResults);
+
+  const fetchGithub = async () => {
+    try {
+      const response = await fetch('https://api.github.com/search/users?q=EloxFire&callback=test');
+      console.log(response);
+
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+
     }
-  }, [searchResults]);
+  }
 
 
   const value = {
