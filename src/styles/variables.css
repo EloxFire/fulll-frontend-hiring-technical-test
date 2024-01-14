@@ -1,0 +1,13 @@
+/* Variabilisation des couleurs présentes
+dans le projet pour une meilleure lisibilité
+et une centralisation des changements potentiels */
+
+:root{
+  --white: #FFFFFF;
+  --black: #000000;
+  --dark-grey: #636363;
+  --grey: #E5E5E5;
+  --blue: #1E90FF;
+  --cyan: #00FFFF;
+  --dark-cyan: #008B8B;
+}

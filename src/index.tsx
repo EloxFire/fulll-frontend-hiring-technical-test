@@ -3,13 +3,21 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { SearchProvider } from './contexts/SearchContext';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <React.StrictMode>
-    <App />
+    {/*
+    Le SearchProvider englobe toute notre app
+    ce qui nous permet d'avoir accès aux informations
+    de recherche depuis n'importe ou dans l'app
+    */}
+    <SearchProvider>
+      <App />
+    </SearchProvider>
   </React.StrictMode>
 );
 

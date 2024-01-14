@@ -1,24 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Card from './components/Card';
+import { useSearch } from './hooks/useSearch';
+import './styles/home.css'
 
 function App() {
+
+  const { searchResults } = useSearch()
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="home">
+      <div className="header">
+        <h1>Github Search</h1>
+      </div>
+      <div className="content">
+        <input type="text" />
+        <div className="controls">
+
+        </div>
+        <div className="results">
+          {
+            searchResults.length > 0 ?
+              searchResults.map((result: any) => {
+                return (
+                  <Card />
+                )
+              })
+              :
+              <h2>Aucun résulats...</h2>
+          }
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,23 @@
+@import 'variables.css';
+
+/* Reset global du style par défaut */
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1{
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--black);
+}
+
+#home .header{
+  background-color: var(--dark-grey);
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
