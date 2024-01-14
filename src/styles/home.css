@@ -38,6 +38,7 @@ h1{
   flex-direction: row;
   gap: 30px;
   flex-wrap: wrap;
+  justify-content: space-around;
   /* align-items: center; */
   /* justify-content: center; */
   width: 100%;

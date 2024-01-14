@@ -15,12 +15,14 @@ export default function Card({ user }: CardProps) {
         <input type="checkbox" />
       </div>
       <div className="card__body">
-        <img className="card__body__avatar" src="" alt="" />
+        {(user && user.avatar_url !== "") && <img className="card__body__avatar" src="" alt="" />}
+        {(!user || (user && user.avatar_url === "")) && <div className="card__body__avatar--default">Avatar</div>}
         <div className="card__body__infos">
-          <h3 className="card__body__infos__name">Nom de l'utilisateur</h3>
-          <p className="card__body__infos__login">Login de l'utilisateur</p>
+          <p className="card__body__infos__text">ID</p>
+          <p className="card__body__infos__text">Login</p>
         </div>
       </div>
+      <button className="card__button">View profile</button>
     </div>
   )
 }

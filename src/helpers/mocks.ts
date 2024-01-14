@@ -4,7 +4,7 @@ export const mockUser: GithubProfile = {
   login: 'mockUser',
   id: 1,
   node_id: '1',
-  avatar_url: 'mockUser',
+  avatar_url: '',
   gravatar_id: 'mockUser',
   url: 'mockUser',
   html_url: 'mockUser',
