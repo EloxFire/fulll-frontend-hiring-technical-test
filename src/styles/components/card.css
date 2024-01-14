@@ -1,0 +1,17 @@
+@import '../variables.css';
+
+.card{
+  width: 150px;
+  height: 200px;
+  background-color: var(--grey);
+
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 3px 3px 8px 0px rgba(var(--rgb-black),0.70);
+}
+
+.card__header{
+
+}

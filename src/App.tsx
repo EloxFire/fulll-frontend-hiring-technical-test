@@ -1,10 +1,11 @@
-import Card from './components/Card';
 import { useSearch } from './hooks/useSearch';
-import './styles/home.css'
+import Card from './components/Card';
+import './styles/home.css';
+import { mockUser } from './helpers/mocks';
 
 function App() {
 
-  const { searchResults } = useSearch()
+  const { searchResults } = useSearch();
 
   return (
     <div id="home">
@@ -16,8 +17,13 @@ function App() {
         <div className="controls">
 
         </div>
-        <div className="results">
-          {
+        <div className="results-box">
+          <Card user={mockUser} />
+          <Card user={mockUser} />
+          <Card user={mockUser} />
+          <Card user={mockUser} />
+          <Card user={mockUser} />
+          {/* {
             searchResults.length > 0 ?
               searchResults.map((result: any) => {
                 return (
@@ -25,8 +31,8 @@ function App() {
                 )
               })
               :
-              <h2>Aucun résulats...</h2>
-          }
+              <p>Aucun résulats...</p>
+          } */}
         </div>
       </div>
     </div>
