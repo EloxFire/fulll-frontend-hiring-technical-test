@@ -60,9 +60,9 @@ function parseData(data: GithubProfile[]) {
 
   // // Otherwise, the array of items that we want is in an object
   // // Delete keys that don't include the array of items
-  delete data.incomplete_results;
-  delete data.repository_selection;
-  delete data.total_count;
+  // delete data.incomplete_results;
+  // delete data.repository_selection;
+  // delete data.total_count;
   // Pull out the array of items
   const namespaceKey = Object.keys(data)[0];
   data = data[namespaceKey];
