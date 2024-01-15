@@ -31,6 +31,53 @@ h1{
   padding-top: 10vh;
 }
 
+#home .content .search-input{
+  width: 250px;
+  height: 30px;
+  border-radius: 5px;
+  border: 1px solid var(--black);
+  text-align: center;
+}
+
+#home .content .controls{
+  width: 100%;
+  /* background-color: aquamarine; */
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 60px;
+}
+
+#home .content .controls .controls-infos{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  /* background-color: red; */
+}
+
+#home .content .controls .controls-infos:last-child{
+  margin-left: 20px;
+}
+
+#home .content .controls .controls-infos button{
+  border: none;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+#home .content .controls .controls-infos button:nth-child(1){
+  margin-right: 20px;
+}
+
+#home .content .controls .controls-infos button img{
+  height: 30px;
+  width: 30px;
+  opacity: .5;
+}
+
 #home .content .results-box{
   padding: 20px;
   border-top: 1px solid var(--black);
