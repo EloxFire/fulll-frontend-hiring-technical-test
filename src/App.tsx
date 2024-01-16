@@ -4,7 +4,7 @@ import './styles/home.css';
 
 function App() {
 
-  const { searchResults, hasSearched, selectedElements, searchTerm, setSearchTerm, searchError, searchLoading } = useSearch();
+  const { searchResults, hasSearched, selectedElements, searchTerm, setSearchTerm, searchError, searchLoading, totalItems, loadMore, moreLoading } = useSearch();
 
   return (
     <div id="home">
@@ -15,18 +15,21 @@ function App() {
         <input className="search-input" type="text" placeholder='Search username' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         {hasSearched ? "true" : "false        "}
         {searchLoading ? "true" : "false"}
-        {selectedElements.length > 0 && (
-          <div className="controls">
-            <div className='controls-infos'>
-              <input type="checkbox" checked readOnly />
-              <p>Selected elements : {selectedElements.length}</p>
-            </div>
-            <div className='controls-infos'>
-              <button><img src="/images/duplicate.png" alt="Duplicate icon" /></button>
-              <button><img src="/images/trash.png" alt="Trash icon" /></button>
-            </div>
-          </div>
-        )}
+        <div className="controls">
+          <p>Elements affichés : {searchResults.length} / {totalItems}</p>
+          {selectedElements.length > 0 && (
+            <>
+              <div className='controls-infos'>
+                <input type="checkbox" checked readOnly />
+                <p>Selected elements : {selectedElements.length}</p>
+              </div>
+              <div className='controls-infos'>
+                <button><img src="/images/duplicate.png" alt="Duplicate icon" /></button>
+                <button><img src="/images/trash.png" alt="Trash icon" /></button>
+              </div>
+            </>
+          )}
+        </div>
         <div className="results-box">
           {
             searchLoading &&
@@ -43,14 +46,24 @@ function App() {
                 {searchError !== "" && <p className="results-box__text">{searchError}</p>}
                 {
                   searchResults.length > 0 &&
-                  searchResults.map((result: any) => {
+                  searchResults.map((result: any, card_index: number) => {
                     return (
-                      <Card key={`user-card-${result.id}`} user={result} />
+                      <Card key={`user-card-${card_index}-${result.id}`} user={result} />
                     )
                   })
                 }
               </>
             )
+          }
+          {
+            moreLoading ?
+              <div>
+                <img className="results-box__loader" src="/images/loader.png" alt="Loader" />
+                <p>Chargement des résultats</p>
+              </div>
+              :
+              (searchResults.length > 0 && totalItems > searchResults.length) &&
+              <button disabled={moreLoading} onClick={() => loadMore()}>LOAD MORE</button>
           }
         </div>
       </div>

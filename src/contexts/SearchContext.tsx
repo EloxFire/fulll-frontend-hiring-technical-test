@@ -1,7 +1,6 @@
-import { Octokit } from 'octokit';
 import React, { useState, useEffect, ReactNode, createContext } from 'react';
 import { GithubProfile } from '../types/GithubProfile';
-import { getPaginatedUsers } from '../helpers/api/getUsers';
+import { getUsers } from '../helpers/api/getUsers';
 
 // Création d'un contexte pour la recherche afin de pouvoir y accéder depuis n'importe ou dand le projet
 export const SearchContext = createContext<any>({});
@@ -20,6 +19,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
   const [selectedElements, setSelectedElements] = useState<GithubProfile[]>([]);
   const [searchError, setSearchError] = useState<string>("");
   const [searchLoading, setSearchLoading] = useState<boolean>(false);
+  const [moreLoading, setMoreLoading] = useState<boolean>(false);
+  const [nextPageUrl, setNextPageUrl] = useState<string>("");
+  const [totalItems, setTotalItems] = useState<number>(0);
 
   useEffect(() => {
     // Création d'un délai de 300ms avant de lancer la requête
@@ -34,7 +36,6 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   const fetchGithub = async (username: string) => {
     setSearchLoading(true);
-    setSearchError("")
     if (username === "") {
       setSearchResults([]);
       setHasSearched(false);
@@ -44,16 +45,39 @@ export function SearchProvider({ children }: SearchProviderProps) {
       setHasSearched(true);
     }
 
-    try {
-      const data = await getPaginatedUsers(username);
-      console.log(data);
-      setSearchResults(data);
-      setSearchLoading(false);
+    if (nextPageUrl === "") {
 
+      try {
+        const { users, nextUrl, totalItems } = await getUsers(`/search/users?q=${username}`);
+        setSearchResults(users);
+        setNextPageUrl(nextUrl);
+        setSearchLoading(false);
+        setTotalItems(totalItems);
+      } catch (error) {
+        console.log(error);
+        setSearchError("Une erreur est survenue lors de la recherche...");
+        setSearchLoading(false);
+      }
+    } else {
+
+    }
+
+  }
+
+  const loadMore = async () => {
+    if (nextPageUrl === "") return;
+
+    setMoreLoading(true);
+    try {
+      const { users, nextUrl, totalItems } = await getUsers(nextPageUrl);
+      setSearchResults([...searchResults, ...users]);
+      setNextPageUrl(nextUrl);
+      setMoreLoading(false);
+      setTotalItems(totalItems);
     } catch (error) {
       console.log(error);
       setSearchError("Une erreur est survenue lors de la recherche...");
-      setSearchLoading(false);
+      setMoreLoading(false);
     }
   }
 
@@ -76,7 +100,10 @@ export function SearchProvider({ children }: SearchProviderProps) {
     searchTerm,
     setSearchTerm,
     searchError,
-    searchLoading
+    searchLoading,
+    totalItems,
+    loadMore,
+    moreLoading
   }
 
   return (
