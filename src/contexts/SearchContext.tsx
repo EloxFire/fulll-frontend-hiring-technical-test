@@ -34,36 +34,42 @@ export function SearchProvider({ children }: SearchProviderProps) {
   }, [searchTerm])
 
 
+  // La fonction fetchGithub permet de faire une requête à l'API Github
+  // C'est la fonction qui est appelée lorsque l'utilisateur tape un nom d'utilisateur
+  // cette fonctio est appelée dans le useEffect ci-dessus avec un délai de 300ms
+  // Ce delais permet d'éviter de faire une requête à chaque fois que l'utilisateur
+  // tape une lettre dans le champ de recherche. C'est un "debounce" fait maison.
   const fetchGithub = async (username: string) => {
+    setNextPageUrl("");
     setSearchLoading(true);
     if (username === "") {
       setSearchResults([]);
       setHasSearched(false);
       setSearchLoading(false);
       return;
-    } else {
-      setHasSearched(true);
     }
 
-    if (nextPageUrl === "") {
+    setHasSearched(true);
 
-      try {
-        const { users, nextUrl, totalItems } = await getUsers(`/search/users?q=${username}`);
-        setSearchResults(users);
-        setNextPageUrl(nextUrl);
-        setSearchLoading(false);
-        setTotalItems(totalItems);
-      } catch (error) {
-        console.log(error);
-        setSearchError("Une erreur est survenue lors de la recherche...");
-        setSearchLoading(false);
-      }
-    } else {
-
+    try {
+      // La fonction getUsers est une fonction qui se trouve dans le fichier src/helpers/api/getUsers.ts
+      const { users, nextUrl, totalItems } = await getUsers(`/search/users?q=${username}`);
+      setSearchResults(users);
+      setNextPageUrl(nextUrl);
+      setSearchLoading(false);
+      setTotalItems(totalItems);
+    } catch (error) {
+      console.log(error);
+      setSearchError("Une erreur est survenue lors de la recherche...");
+      setSearchLoading(false);
     }
 
   }
 
+  // La fonction loadMore permet de charger plus de résultats s'il en existe.
+  // Elle est appelée lorsque l'utilisateur clique sur le bouton "LOAD MORE"
+  // et se base sur l'existance d'une URL de requête suivante fournis lors de
+  // la première recherche.
   const loadMore = async () => {
     if (nextPageUrl === "") return;
 
@@ -81,12 +87,19 @@ export function SearchProvider({ children }: SearchProviderProps) {
     }
   }
 
+  // Les fonctions addSelectedElement et removeSelectedElement permettent d'ajouter
+  // ou de supprimer un élément de la liste des éléments sélectionnés.
   const addSelectedElement = (element: GithubProfile) => {
     setSelectedElements([...selectedElements, element]);
   }
 
   const removeSelectedElement = (element: GithubProfile) => {
     setSelectedElements(selectedElements.filter((selectedElement: GithubProfile) => selectedElement.id !== element.id));
+  }
+
+  // La fonction selectAllElements permet de sélectionner tous les éléments de la liste
+  const selectAllElements = () => {
+    setSelectedElements(searchResults);
   }
 
 
@@ -97,6 +110,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
     selectedElements,
     addSelectedElement,
     removeSelectedElement,
+    selectAllElements,
     searchTerm,
     setSearchTerm,
     searchError,

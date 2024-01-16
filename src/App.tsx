@@ -13,22 +13,20 @@ function App() {
       </div>
       <div className="content">
         <input className="search-input" type="text" placeholder='Search username' value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
-        {hasSearched ? "true" : "false        "}
-        {searchLoading ? "true" : "false"}
         <div className="controls">
           <p>Elements affichés : {searchResults.length} / {totalItems}</p>
-          {selectedElements.length > 0 && (
-            <>
-              <div className='controls-infos'>
-                <input type="checkbox" checked readOnly />
-                <p>Selected elements : {selectedElements.length}</p>
-              </div>
+          <div className="card-controls">
+            <div className='controls-infos'>
+              <input type="checkbox" checked readOnly />
+              <p>Selected elements : {selectedElements.length}</p>
+            </div>
+            {selectedElements.length > 0 && (
               <div className='controls-infos'>
                 <button><img src="/images/duplicate.png" alt="Duplicate icon" /></button>
                 <button><img src="/images/trash.png" alt="Trash icon" /></button>
               </div>
-            </>
-          )}
+            )}
+          </div>
         </div>
         <div className="results-box">
           {

@@ -9,15 +9,9 @@ const octokit = new Octokit({
 });
 
 // Adaptation des fonctions d'exemple de la documentation de Github
-// getUsers permet de récupérer les utilisateurs Github en fonction d'un username (100 premiers)
-// L'API Github ne permettant pas de récupérer plus de 30 utilisateurs par requête
-// On utilise une boucle while pour récupérer tous les utilisateurs via la pagination de la requete
-//
 // https://docs.github.com/en/rest/using-the-rest-api/using-pagination-in-the-rest-api?apiVersion=2022-11-28
 
-// getUsers retourne un objet contenant les utilisateurs, le nombre total d'utilisateurs, l'URL de la page suivante
-// et l'URL de la dernière page
-
+// getUsers retourne un objet contenant les utilisateurs, le nombre total d'utilisateurs et l'URL de la page suivante
 export const getUsers = async (url: string) => {
   const nextUrlPattern = /(?<=<)([\S]*)(?=>; rel="Next")/i;
 

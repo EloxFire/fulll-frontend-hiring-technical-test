@@ -45,21 +45,22 @@ h1{
   /* background-color: aquamarine; */
   height: 50px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   padding: 0 60px;
+}
+
+#home .content .controls .card-controls{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  height: 100px;
 }
 
 #home .content .controls .controls-infos{
   display: flex;
   flex-direction: row;
   align-items: center;
-  /* background-color: red; */
-}
-
-#home .content .controls .controls-infos:last-child{
-  margin-left: 20px;
 }
 
 #home .content .controls .controls-infos button{
