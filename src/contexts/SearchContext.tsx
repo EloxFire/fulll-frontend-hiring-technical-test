@@ -19,6 +19,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
   const [hasSearched, setHasSearched] = useState<boolean>(false);
   const [selectedElements, setSelectedElements] = useState<GithubProfile[]>([]);
   const [searchError, setSearchError] = useState<string>("");
+  const [searchLoading, setSearchLoading] = useState<boolean>(false);
 
   useEffect(() => {
     // Création d'un délai de 300ms avant de lancer la requête
@@ -32,9 +33,12 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
 
   const fetchGithub = async (username: string) => {
+    setSearchLoading(true);
+    setSearchError("")
     if (username === "") {
       setSearchResults([]);
       setHasSearched(false);
+      setSearchLoading(false);
       return;
     } else {
       setHasSearched(true);
@@ -44,10 +48,12 @@ export function SearchProvider({ children }: SearchProviderProps) {
       const data = await getPaginatedUsers(username);
       console.log(data);
       setSearchResults(data);
+      setSearchLoading(false);
 
     } catch (error) {
       console.log(error);
-      // setSearchError(error.message);
+      setSearchError("Une erreur est survenue lors de la recherche...");
+      setSearchLoading(false);
     }
   }
 
@@ -69,6 +75,8 @@ export function SearchProvider({ children }: SearchProviderProps) {
     removeSelectedElement,
     searchTerm,
     setSearchTerm,
+    searchError,
+    searchLoading
   }
 
   return (
