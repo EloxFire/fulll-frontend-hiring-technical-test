@@ -11,6 +11,7 @@ interface SearchProviderProps {
 }
 
 // Création d'un composent SearchProvider qui va permettre de fournir les informations de recherche à l'ensemble de l'application
+// J'utilise cette méthode afin de centraliser la logique et avoir un code plus propre dans src/App.tsx
 export function SearchProvider({ children }: SearchProviderProps) {
 
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -105,6 +106,7 @@ export function SearchProvider({ children }: SearchProviderProps) {
 
   const value = {
     searchResults,
+    setSearchResults,
     fetchGithub,
     hasSearched,
     selectedElements,
@@ -117,7 +119,9 @@ export function SearchProvider({ children }: SearchProviderProps) {
     searchLoading,
     totalItems,
     loadMore,
-    moreLoading
+    moreLoading,
+    setSelectedElements,
+    setTotalItems,
   }
 
   return (
