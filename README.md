@@ -28,3 +28,9 @@ Génération d'un token Github : Profile > Settings > Developer settings > Perso
 ```bash
 npm start
 ```
+
+## Écart par rapport à l'énoncé
+Une librairie externe à été utilisé : Octokit.
+Cette librairie est utilisée pour tous les appels à l'API Github sur recommandations de la documentation Github.
+
+Voir plus : https://docs.github.com/en/rest/quickstart?apiVersion=2022-11-28
