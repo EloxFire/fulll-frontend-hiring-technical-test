@@ -7,10 +7,11 @@ import { useSearch } from '../hooks/useSearch';
 interface CardProps {
   user: GithubProfile
   selected: boolean
+  editMode: boolean
 }
 
 // Création d'un composent Card qui affichera les informations d'un utilisateur
-export default function Card({ user, selected }: CardProps) {
+export default function Card({ user, selected, editMode }: CardProps) {
 
   const { addSelectedElement, removeSelectedElement } = useSearch();
 
@@ -25,9 +26,12 @@ export default function Card({ user, selected }: CardProps) {
 
   return (
     <div className="card">
-      <div className="card__header">
-        <input type="checkbox" checked={selected} onChange={(e) => handleCheckboxChange(e)} />
-      </div>
+      {
+        editMode &&
+        <div className="card__header">
+          <input type="checkbox" checked={selected} onChange={(e) => handleCheckboxChange(e)} />
+        </div>
+      }
       <div className="card__body">
         {(user && user.avatar_url !== "") && <img className="card__body__avatar" src={user.avatar_url} alt={user.login} />}
         {(!user || (user && user.avatar_url === "")) && <div className="card__body__avatar--default">Avatar</div>}

@@ -42,43 +42,45 @@ h1{
 
 #home .content .controls{
   width: 100%;
-  /* background-color: aquamarine; */
-  height: 50px;
   display: flex;
   flex-direction: column;
-  padding: 0 60px;
+  padding: 0 50px;
 }
 
-#home .content .controls .card-controls{
+#home .content .controls infos{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+}
+
+#home .content .edit-mode{
+  height: 50px;
+  /* background-color: red; */
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 100px;
 }
 
-#home .content .controls .controls-infos{
+#home .content .edit-mode .edit-controls{
   display: flex;
   flex-direction: row;
   align-items: center;
+  /* justify-content: space-between; */
 }
 
-#home .content .controls .controls-infos button{
+#home .content .edit-mode .edit-controls button{
+  background-color: transparent;
   border: none;
   outline: none;
-  background-color: transparent;
-  cursor: pointer;
 }
 
-#home .content .controls .controls-infos button:nth-child(1){
-  margin-right: 20px;
-}
-
-#home .content .controls .controls-infos button img{
-  height: 30px;
+#home .content .edit-mode .edit-controls button img{
   width: 30px;
-  opacity: .5;
+  height: 30px;
 }
+
 
 #home .content .results-box{
   padding: 20px;
@@ -95,10 +97,11 @@ h1{
   overflow: auto;
 }
 
-#home .content .results-box .results-box__loader{
+#home .content .results-box__loader{
   width: 50px;
   height: 50px;
   opacity: .5;
+  margin-bottom: 5vh;
   -webkit-animation: rotating 4s linear infinite;
   -moz-animation: rotating 4s linear infinite;
   -ms-animation: rotating 4s linear infinite;
